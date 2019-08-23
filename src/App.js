@@ -21,10 +21,9 @@ export default class App extends Component {
         <Route exact path='/unicorns' render={() => <Creatures data={ unicornsData }/>}></Route>
         <Route exact path='/puppies' render={() => <Creatures data={ puppiesData } />}></Route>
         <Route exact path='/sharks' render={() => <Creatures data={ sharksData } />}></Route>
-        <Route path='/:creature/:id' render={({ match }) => {
-          let dataType = `${match.params.creature}Data`
+        <Route path='/unicorns/:id' render={({ match }) => {
 
-          let foundCreature = dataType.find(creature => {
+          let foundCreature = unicornsData.find(creature => {
             return creature.id == match.params.id
           });
           console.log(foundCreature)

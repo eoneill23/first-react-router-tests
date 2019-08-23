@@ -2,8 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import App from './App.js';
 import { MemoryRouter, Route } from 'react-router-dom';
-import Creatures from './Creatures';
-import Home from './Home';
+import Creatures from './Creatures.js';
+import CreatureDetails from './CreatureDetails.js';
+import Home from './Home.js';
 
 
 describe('Route', () => {
@@ -45,5 +46,25 @@ describe('Route', () => {
     );
 
     expect(wrapper.find(Creatures)).toHaveLength(1);
+  });
+
+  it('should not render a component if an invalid route is selected is clicked', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find(Creatures)).toHaveLength(0);
+  });
+
+  it('should show a specific creature when a dynamic route is selected', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/unicorns/5']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find(CreatureDetails)).toHaveLength(1);
   });
 });
